@@ -20,6 +20,8 @@ const Nav = () => {
     ClientSafeProvider
   > | null>(null);
 
+  const [toggleDropDown, setToggleDropDown] = useState(false);
+
   useEffect(() => {
     const fetchProviders = async () => {
       const response = await getProviders();
@@ -88,8 +90,37 @@ const Nav = () => {
               width={37}
               height={37}
               alt="Profile"
-              onClick={() => {}}
+              onClick={() => setToggleDropDown((prev) => !prev)}
             />
+
+            {toggleDropDown && (
+              <div className=" dropdown">
+                <Link
+                  href="/profile"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropDown(false)}
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href="/create-prompt"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropDown(false)}
+                >
+                  Create Prompt
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setToggleDropDown(false);
+                    signOut();
+                  }}
+                  className="mt-5 w-full black_btn"
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>
