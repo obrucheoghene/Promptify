@@ -6,7 +6,7 @@ export interface PostType {
 export interface FormProps {
   type: string;
   post: PostType;
-  setPost: () => void;
+  setPost: (post: PostType) => void;
   submitting: boolean;
-  handleSubmit: () => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
