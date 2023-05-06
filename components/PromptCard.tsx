@@ -8,9 +8,9 @@ interface PromptCardProps {
   handleTagClick: (
     event: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
     tag: string
-  ) => {};
-  handleEdit: () => {};
-  handleDelete: () => {};
+  ) => void;
+  handleEdit: () => void;
+  handleDelete: () => void;
 }
 const PromptCard = ({
   post,
