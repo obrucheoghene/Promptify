@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 export interface PostType {
   prompt: string;
   tag: string;
@@ -9,4 +11,9 @@ export interface FormProps {
   setPost: (post: PostType) => void;
   submitting: boolean;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export interface PromptCardListProps {
+  data: Record<string, any>[];
+  handleTagClick: (event: ChangeEvent<HTMLInputElement>) => void;
 }
