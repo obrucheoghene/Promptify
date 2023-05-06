@@ -1,5 +1,3 @@
-import { ChangeEvent } from 'react';
-
 export interface PostType {
   prompt: string;
   tag: string;
@@ -15,5 +13,8 @@ export interface FormProps {
 
 export interface PromptCardListProps {
   data: Record<string, any>[];
-  handleTagClick: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleTagClick: (
+    event: React.ChangeEvent<HTMLParagraphElement>,
+    tag: string
+  ) => void;
 }
