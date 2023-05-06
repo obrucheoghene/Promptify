@@ -18,6 +18,8 @@ const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => (
         handleTagClick={(event: MouseEvent<HTMLParagraphElement>) =>
           handleTagClick(event, post.tag)
         }
+        handleDelete={() => {}}
+        handleEdit={() => {}}
       />
     ))}
   </div>
