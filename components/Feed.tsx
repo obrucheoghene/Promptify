@@ -1,12 +1,24 @@
 'use client';
-import { useState, useEffect, ChangeEvent, useCallback } from 'react';
+import {
+  useState,
+  useEffect,
+  ChangeEvent,
+  useCallback,
+  MouseEvent,
+} from 'react';
 import PromptCard from './PromptCard';
 import { PromptCardListProps } from '@utils/interface';
 
 const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => (
   <div className="mt-16 prompt_layout">
     {data.map((post) => (
-      <PromptCard key={post._id} post={post} handleTagClick={handleTagClick} />
+      <PromptCard
+        key={post._id}
+        post={post}
+        handleTagClick={(event: MouseEvent<HTMLParagraphElement>) =>
+          handleTagClick(event, post.tag)
+        }
+      />
     ))}
   </div>
 );
