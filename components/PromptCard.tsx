@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 interface PromptCardProps {
   post: Record<string, any>;
-  handleTagClick: (
+  handleTagClick?: (
     event: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
     tag: string
   ) => void;
