@@ -28,23 +28,20 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   const [searchText, setSearchText] = useState('');
-  const [searchTimeout, setSearchTimeout] = useState(setTimeout(() => {}, 500));
+  const [searchTimeout, setSearchTimeout] = useState(setTimeout(() => {}, 100));
   const [searchedResults, setSearchedResults] = useState([]);
 
-  const handleSearchChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      clearTimeout(searchTimeout);
-      setSearchText(event.target.value);
-      setSearchTimeout(
-        setTimeout(() => {
-          const searchResult = filterPrompts(event.target.value);
-          setSearchedResults(searchResult);
-        }, 500)
-      );
-    },
-
-    []
-  );
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(searchTimeout);
+    console.log(event.target.value);
+    setSearchText(event.target.value);
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = filterPrompts(event.target.value);
+        setSearchedResults(searchResult);
+      }, 200)
+    );
+  };
 
   const filterPrompts = (searchtext: string) => {
     const regex = new RegExp(searchtext, 'i'); // 'i' flag for case-insensitive search
