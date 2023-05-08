@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { Schema, model, models } from 'mongoose';
+import { Schema, model, models, now } from 'mongoose';
 
 const PromptSchema = new Schema({
   creator: {
@@ -14,6 +14,7 @@ const PromptSchema = new Schema({
     type: String,
     required: [true, 'Tag is required.'],
   },
+  createdAt: { type: Date, default: now() },
 });
 
 export const Prompt = models.Prompt || model('Prompt', PromptSchema);
