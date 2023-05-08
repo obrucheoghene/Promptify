@@ -46,6 +46,7 @@ const PromptCard = ({
             alt="user_image"
             width={40}
             height={40}
+            className="rounded-full"
           />
           <div className=" flex flex-col">
             <h3 className="font-santoshi font-semibold text-gray-900 ">
