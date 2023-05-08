@@ -16,9 +16,7 @@ const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => (
       <PromptCard
         key={post._id}
         post={post}
-        handleTagClick={(event: MouseEvent<HTMLParagraphElement>) =>
-          handleTagClick(event, post.tag)
-        }
+        handleTagClick={handleTagClick}
         handleDelete={() => {}}
         handleEdit={() => {}}
       />
@@ -68,10 +66,8 @@ const Feed = () => {
     fetchPost();
   }, []);
 
-  const handleTagClick = (
-    event: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
-    tagName: string
-  ) => {
+  const handleTagClick = (tagName: string) => {
+    console.log(tagName);
     setSearchText(tagName);
 
     const searchResult = filterPrompts(tagName);
@@ -93,17 +89,10 @@ const Feed = () => {
       {searchText ? (
         <PromptCardList
           data={searchedResults}
-          handleTagClick={(event: React.MouseEvent<HTMLParagraphElement>) =>
-            handleTagClick
-          }
+          handleTagClick={handleTagClick}
         />
       ) : (
-        <PromptCardList
-          data={posts}
-          handleTagClick={(event: React.MouseEvent<HTMLParagraphElement>) =>
-            handleTagClick
-          }
-        />
+        <PromptCardList data={posts} handleTagClick={handleTagClick} />
       )}
     </section>
   );
