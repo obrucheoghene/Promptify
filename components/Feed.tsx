@@ -5,6 +5,7 @@ import {
   ChangeEvent,
   useCallback,
   MouseEvent,
+  DependencyList,
 } from 'react';
 import PromptCard from './PromptCard';
 import { PromptCardListProps } from '@utils/interface';
@@ -26,14 +27,36 @@ const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => (
 );
 
 const Feed = () => {
-  const [searchText, setSearchText] = useState('');
   const [posts, setPosts] = useState([]);
 
+  const [searchText, setSearchText] = useState('');
+  const [searchTimeout, setSearchTimeout] = useState(setTimeout(() => {}, 500));
+  const [searchedResults, setSearchedResults] = useState([]);
+
   const handleSearchChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {},
+    (event: ChangeEvent<HTMLInputElement>) => {
+      clearTimeout(searchTimeout);
+      setSearchText(event.target.value);
+      setSearchTimeout(
+        setTimeout(() => {
+          const searchResult = filterPrompts(event.target.value);
+          setSearchedResults(searchResult);
+        }, 500)
+      );
+    },
 
     []
   );
+
+  const filterPrompts = (searchtext: string) => {
+    const regex = new RegExp(searchtext, 'i'); // 'i' flag for case-insensitive search
+    return posts.filter(
+      (item: Record<string, any>) =>
+        regex.test(item.creator.username) ||
+        regex.test(item.tag) ||
+        regex.test(item.prompt)
+    );
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -45,6 +68,15 @@ const Feed = () => {
     fetchPost();
   }, []);
 
+  const handleTagClick = (
+    event: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
+    tagName: string
+  ) => {
+    setSearchText(tagName);
+
+    const searchResult = filterPrompts(tagName);
+    setSearchedResults(searchResult);
+  };
   return (
     <section className="feed">
       <form className="relative w-full flex-center">
@@ -58,7 +90,21 @@ const Feed = () => {
         />
       </form>
 
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      {searchText ? (
+        <PromptCardList
+          data={searchedResults}
+          handleTagClick={(event: React.MouseEvent<HTMLParagraphElement>) =>
+            handleTagClick
+          }
+        />
+      ) : (
+        <PromptCardList
+          data={posts}
+          handleTagClick={(event: React.MouseEvent<HTMLParagraphElement>) =>
+            handleTagClick
+          }
+        />
+      )}
     </section>
   );
 };
