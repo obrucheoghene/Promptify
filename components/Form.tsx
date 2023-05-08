@@ -1,3 +1,4 @@
+import { POST_MESSAGE } from '@utils/constant';
 import { FormProps, PostType } from '@utils/interface';
 import Link from 'next/link';
 import React from 'react';
@@ -14,10 +15,7 @@ const Form: React.FC<FormProps> = ({
       <h1 className="head_text text-left">
         <span className=" blue_gradient">{type} Post</span>
       </h1>
-      <p className="desc text-left max-w-md">
-        {type} and share amazing prompts with the world, and let your
-        imagination run wild with any AI-powered platform
-      </p>
+      <p className="desc text-left max-w-md">{POST_MESSAGE}</p>
       <form
         onSubmit={handleSubmit}
         className=" mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
@@ -63,7 +61,7 @@ const Form: React.FC<FormProps> = ({
             disabled={submitting}
             className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white disabled:bg-opacity-70"
           >
-            Create
+            {type === 'Create' ? 'Create' : 'Update'}
           </button>
         </div>
       </form>
