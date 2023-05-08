@@ -5,8 +5,8 @@ interface ProfileProps {
   name: string;
   desc: string;
   data: Record<string, any>[];
-  handleEdit: (post: Record<string, any>) => void;
-  handleDelete: (post: Record<string, any>) => void;
+  handleEdit?: (post: Record<string, any>) => void;
+  handleDelete?: (post: Record<string, any>) => void;
 }
 
 const Profile = ({
