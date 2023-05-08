@@ -13,8 +13,5 @@ export interface FormProps {
 
 export interface PromptCardListProps {
   data: Record<string, any>[];
-  handleTagClick: (
-    event: React.MouseEvent<HTMLParagraphElement>,
-    tag: string
-  ) => void;
+  handleTagClick: (tag: string) => void;
 }
