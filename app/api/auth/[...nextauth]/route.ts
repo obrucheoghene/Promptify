@@ -12,24 +12,24 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session }: { session: Record<string, any> }) {
+     async session({session, token, user}) {
       const sessionUser = await User.findOne({
-        email: session.user.email,
+        email: session?.user?.email,
       });
-      session.user.id = sessionUser._id.toString();
-      return session;
+      return {...session, user: { ...session.user, id: sessionUser._id.toString()}};
     },
-    async signIn({ profile }: { profile: Record<string, any> }) {
+    async signIn({ user, account, profile }) {
       try {
+     
         await connectToDB();
         // check if user already exists
-        const userExists = await User.findOne({ email: profile.email });
+        const userExists = await User.findOne({ email: user?.email });
 
         if (!userExists) {
           await User.create({
-            email: profile.email,
-            username: profile.name.replace(' ', '').toLowerCase(),
-            image: profile.picture,
+            email: user?.email,
+            username: user?.name?.replace(' ', '').toLowerCase(),
+            image: user?.image,
           });
         }
 
